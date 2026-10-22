@@ -1,0 +1,63 @@
+/* Demo-Leiste oben auf der Seite */
+.demo-leiste {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
+  background: var(--gruen);
+  color: var(--weiss);
+  font-size: 0.88rem;
+  box-shadow: 0 6px 18px -10px rgba(11, 42, 32, 0.6);
+}
+
+.demo-etikett {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--weiss);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.demo-text strong {
+  color: var(--gold-hell);
+  font-weight: 600;
+}
+
+.demo-knoepfe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.demo-knoepfe a,
+.demo-knoepfe button {
+  padding: 0.3rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--weiss);
+  font: inherit;
+  font-size: 0.82rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.demo-knoepfe a:hover,
+.demo-knoepfe button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.demo-knoepfe a.aktiv {
+  background: var(--weiss);
+  border-color: var(--weiss);
+  color: var(--gruen);
+  font-weight: 600;
+}

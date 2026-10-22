@@ -1,0 +1,17 @@
+Wichtel-Tool Demo auf der Portfolioseite einbetten
+==================================================
+
+1. Den Ordner "demo" bei GitHub in das Repository "wichteltool" hochladen.
+   Danach ist die Demo erreichbar unter:
+   https://janarunkel.github.io/wichteltool/demo/
+
+2. Diesen Code an der gewünschten Stelle deiner Portfolioseite einfügen
+   (z. B. in einen "HTML-Block" oder "Code einbetten"):
+
+<iframe src="https://janarunkel.github.io/wichteltool/demo/"
+  title="Wichtel-Tool Demo" loading="lazy" allow="clipboard-write"
+  style="width:100%; height:820px; border:0; border-radius:16px;"></iframe>
+
+3. Falls dein Baukasten kein HTML erlaubt: einfach die Demo-Adresse verlinken.
+
+Admin-Passwort in der Demo: demo

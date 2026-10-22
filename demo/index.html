@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+  <title>Familien-Wichteln · Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <div class="funkeln" aria-hidden="true"></div>
+
+  <header class="kopf">
+    <img class="kopf-zweig" src="bilder/zweig-sterne.jpg" alt="" aria-hidden="true">
+    <div class="kopf-text">
+      <p class="eyebrow">Fair <span>•</span> Geheim <span>•</span> Fehlerfrei</p>
+      <h1>Familien-<span class="skript">Wichteln</span></h1>
+      <p class="untertitel">Die Wichtel-Auslosung für die ganze Familie.</p>
+    </div>
+    <div class="kopf-bild">
+      <img src="bilder/laterne.jpg" alt="Laterne mit Kerze vor einer verschneiten Winterlandschaft">
+    </div>
+  </header>
+
+  <main>
+    <!-- Allgemeine Meldungen -->
+    <p id="meldung-global" class="meldung meldung-global" role="alert" hidden></p>
+
+    <section id="ansicht-laden" class="karte">
+      <p class="hinweis zentriert">🎄 Einen Moment, die Wichtel-Werkstatt öffnet ...</p>
+    </section>
+
+    <section id="ansicht-nicht-eingerichtet" class="karte" hidden>
+      <h2>Noch nicht eingerichtet</h2>
+      <p class="hinweis">
+        Das Tool ist noch nicht mit der Datenbank verbunden. Trag in der Datei <code>config.js</code>
+        die Supabase-Adresse und den Schlüssel ein. Wie das geht, steht in <code>EINRICHTUNG.md</code>.
+      </p>
+    </section>
+
+    <!-- =====================================================
+         Teilnehmer-Bereich (das ist die Seite hinter dem Einladungslink)
+         ===================================================== -->
+    <div id="teilnehmer-bereich" hidden>
+
+      <!-- Regeln -->
+      <section class="karte info-karte" aria-labelledby="tn-titel-regeln">
+        <h2 id="tn-titel-regeln">Unsere Wichtel-Regeln</h2>
+        <ul class="regeln">
+          <li><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="9" width="17" height="11.5" rx="1"/><path d="M2.5 9h19v-3h-19z"/><path d="M12 6v14.5"/><path d="M12 6c-1.5-3.5-5.5-3.5-5.5-1S10 6 12 6zm0 0c1.5-3.5 5.5-3.5 5.5-1S14 6 12 6z"/></svg></span><span>Jede Person beschenkt <strong>genau eine</strong> andere Person und bekommt selbst <strong>genau ein</strong> Geschenk.</span></li>
+          <li><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/><path d="M4 4l16 16"/></svg></span><span>Niemand kann sich selbst ziehen. Das prüft das Tool automatisch.</span></li>
+          <li class="regel-budget"><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5a4 4 0 1 0 0 7"/><path d="M8 10.8h5.5M8 13.2h5.5"/></svg></span><span>Budget: höchstens <strong class="budget-wert"></strong> pro Geschenk.</span></li>
+          <li><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/></svg></span><span>Psst! Verrate niemandem, wen du beschenkst. Die Überraschung ist das Schönste.</span></li>
+          <li><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M15 3.5V7h3.5"/><path d="M9 11h6.5M9 14h6.5M9 17h4"/></svg></span><span>Jede Person darf bis zu <strong>3 Geschenkwünsche</strong> hinterlegen. Die Wünsche sind Anregungen, keine Pflicht.</span></li>
+        </ul>
+      </section>
+
+      <!-- Anleitung -->
+      <section class="karte info-karte" aria-labelledby="tn-titel-anleitung">
+        <h2 id="tn-titel-anleitung">So funktioniert's</h2>
+        <ol class="anleitung">
+          <li><strong>Anmelden:</strong> Trag deinen Namen und bis zu 3 Geschenkwünsche ein.</li>
+          <li><strong>Code merken:</strong> Du bekommst einen persönlichen Code. Dieses Gerät merkt ihn sich, schreib ihn dir aber zur Sicherheit auf.</li>
+          <li><strong>Auslosung abwarten:</strong> Wenn alle angemeldet sind, startet die Organisatorin oder der Organisator die Auslosung.</li>
+          <li><strong>Wichtel aufdecken:</strong> Öffne danach wieder diesen Link. Du siehst nur, wen <em>du</em> beschenkst, samt Wunschzettel. Niemand sonst sieht das.</li>
+          <li><strong>Schenken:</strong> Geschenk im Budget besorgen, geheim halten und beim Wichteln überreichen. 🎄</li>
+        </ol>
+      </section>
+
+      <!-- Neu hier: anmelden -->
+      <section id="tn-anmelden" class="karte" hidden>
+        <h2>Mach mit beim Wichteln!</h2>
+        <p class="hinweis">Trag deinen Namen und bis zu 3 Geschenkwünsche ein. Danach bekommst du deinen persönlichen Code.</p>
+        <form id="form-anmelden" autocomplete="off">
+          <label class="feld">Dein Name
+            <input id="anmelden-name" type="text" maxlength="40" placeholder="z. B. Oma Erika" required>
+          </label>
+          <div class="wunsch-felder">
+            <label>1. Wunsch <input type="text" name="wunsch" maxlength="80" placeholder="z. B. ein gutes Buch"></label>
+            <label>2. Wunsch <input type="text" name="wunsch" maxlength="80" placeholder="z. B. Kuschelsocken"></label>
+            <label>3. Wunsch <input type="text" name="wunsch" maxlength="80" placeholder="z. B. Pralinen"></label>
+          </div>
+          <p id="meldung-anmelden" class="meldung" role="alert" hidden></p>
+          <div class="aktionen">
+            <button type="button" class="link-knopf zeige-code-login">Ich bin schon angemeldet</button>
+            <button type="submit" class="knopf knopf-haupt">🎄 Anmelden</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Anmeldung geschlossen -->
+      <section id="tn-geschlossen" class="karte" hidden>
+        <h2>Die Auslosung ist schon gelaufen</h2>
+        <p class="hinweis">Neue Anmeldungen sind nicht mehr möglich. Wenn du schon angemeldet bist, gib unten deinen persönlichen Code ein.</p>
+      </section>
+
+      <!-- Mit Code anmelden -->
+      <section id="tn-code-login" class="karte" hidden>
+        <h2>Mit deinem Code weiter</h2>
+        <p class="hinweis">Den Code hast du bei deiner Anmeldung bekommen, z. B. <code>A1B2-C3D4-E5F6-7890</code>.</p>
+        <form id="form-code" class="eingabezeile" autocomplete="off">
+          <label for="eingabe-code" class="versteckt">Persönlicher Code</label>
+          <input id="eingabe-code" type="text" maxlength="30" placeholder="Dein Code" autocapitalize="characters" spellcheck="false">
+          <button type="submit" class="knopf">Weiter</button>
+        </form>
+        <p id="meldung-code" class="meldung" role="alert" hidden></p>
+        <div class="aktionen">
+          <button id="knopf-zur-anmeldung" type="button" class="link-knopf">Ich bin neu und möchte mich anmelden</button>
+        </div>
+      </section>
+
+      <!-- Nach der Anmeldung: Code zeigen -->
+      <section id="tn-neuer-code" class="karte" hidden>
+        <h2>Geschafft, du bist dabei! 🎉</h2>
+        <p class="hinweis">Das ist dein persönlicher Code. Dieses Gerät merkt ihn sich. Schreib ihn dir trotzdem auf, damit du dein Ergebnis auch auf einem anderen Gerät sehen kannst.</p>
+        <p id="neuer-code" class="code-anzeige"></p>
+        <div class="aktionen">
+          <button id="knopf-code-link-kopieren" type="button" class="knopf knopf-dezent">🔗 Persönlichen Link kopieren</button>
+          <button id="knopf-code-weiter" type="button" class="knopf knopf-haupt">Weiter</button>
+        </div>
+        <p class="klein">Gib den Code und deinen persönlichen Link an niemanden weiter.</p>
+      </section>
+
+      <!-- Angemeldet -->
+      <section id="tn-ich" class="karte" hidden>
+        <h2>Hallo <span id="ich-name"></span>! 👋</h2>
+
+        <div id="ich-wartet">
+          <p class="status-box">⏳ Die Auslosung hat noch nicht stattgefunden. Schau später wieder vorbei, dann erfährst du hier, wen du beschenkst.</p>
+        </div>
+
+        <div id="ich-ausgelost" hidden>
+          <p class="hinweis">Die Auslosung ist fertig! Achte darauf, dass niemand mitschaut.</p>
+          <div id="ich-verdeckt">
+            <button id="knopf-aufdecken" class="knopf knopf-haupt knopf-gross" type="button">🎁 Meinen Wichtel aufdecken</button>
+          </div>
+          <div id="ich-aufgedeckt" class="aufgedeckt" hidden>
+            <p class="geschenk-symbol" aria-hidden="true">🎁</p>
+            <p>Du beschenkst:</p>
+            <p id="ich-empfaenger" class="empfaenger"></p>
+            <div class="wunschzettel">
+              <p class="wunschzettel-titel">📝 Wunschzettel</p>
+              <ul id="ich-empfaenger-wuensche"></ul>
+              <p id="ich-keine-wuensche" class="klein" hidden>Keine Wünsche hinterlegt. Lass dich inspirieren!</p>
+            </div>
+            <p class="budget-hinweis">💶 Budget: höchstens <strong class="budget-wert"></strong></p>
+            <p class="klein">Pssst! Verrate es niemandem. 🤫</p>
+            <button id="knopf-verbergen" class="knopf knopf-dezent" type="button">Wieder verbergen</button>
+          </div>
+        </div>
+
+        <details class="eigene-wuensche">
+          <summary>📝 Meine eigenen Wünsche bearbeiten</summary>
+          <form id="form-eigene-wuensche" autocomplete="off">
+            <div class="wunsch-felder">
+              <label>1. Wunsch <input type="text" name="wunsch" maxlength="80"></label>
+              <label>2. Wunsch <input type="text" name="wunsch" maxlength="80"></label>
+              <label>3. Wunsch <input type="text" name="wunsch" maxlength="80"></label>
+            </div>
+            <p id="meldung-eigene-wuensche" class="meldung" role="alert" hidden></p>
+            <p id="erfolg-eigene-wuensche" class="erfolg" hidden>✓ Gespeichert. Dein Wichtel sieht jetzt deine neuen Wünsche.</p>
+            <div class="aktionen">
+              <span></span>
+              <button type="submit" class="knopf">Wünsche speichern</button>
+            </div>
+          </form>
+        </details>
+
+        <div class="aktionen">
+          <button id="knopf-ich-link" type="button" class="link-knopf">🔗 Persönlichen Link kopieren</button>
+          <button id="knopf-abmelden" type="button" class="link-knopf">Auf diesem Gerät abmelden</button>
+        </div>
+      </section>
+
+      <!-- Wer ist dabei -->
+      <section class="karte info-karte">
+        <h2>Schon dabei <span id="dabei-anzahl" class="anzahl-blase"></span></h2>
+        <ul id="dabei-liste" class="chips"></ul>
+        <p id="dabei-leer" class="leer">Noch niemand angemeldet. Sei die oder der Erste!</p>
+      </section>
+    </div>
+
+    <!-- =====================================================
+         Admin-Bereich (erreichbar über …/#admin)
+         ===================================================== -->
+    <div id="admin-bereich" hidden>
+      <section id="admin-login" class="karte" hidden>
+        <h2>👑 Admin-Bereich</h2>
+        <p class="hinweis">Hier organisierst du das Wichteln. Bitte gib das Admin-Passwort ein, das du bei der Einrichtung festgelegt hast.</p>
+        <form id="form-admin-login" class="eingabezeile">
+          <label for="eingabe-admin-passwort" class="versteckt">Admin-Passwort</label>
+          <input id="eingabe-admin-passwort" type="password" placeholder="Admin-Passwort" autocomplete="current-password">
+          <button type="submit" class="knopf">Anmelden</button>
+        </form>
+        <p id="meldung-admin-login" class="meldung" role="alert" hidden></p>
+      </section>
+
+      <div id="admin-dashboard" hidden>
+        <section class="karte info-karte">
+          <h2>👑 Admin-Bereich</h2>
+          <p class="status-box" id="admin-status"></p>
+          <p class="hinweis">Du siehst hier, wer mitmacht, aber <strong>nicht</strong>, wer wen beschenkt. Die Auslosung passiert geheim auf dem Server.</p>
+          <div class="aktionen">
+            <button id="knopf-admin-aktualisieren" type="button" class="knopf knopf-dezent">🔄 Aktualisieren</button>
+            <button id="knopf-admin-abmelden" type="button" class="knopf knopf-dezent">Admin abmelden</button>
+          </div>
+        </section>
+
+        <section class="karte info-karte">
+          <h2>Einladungslink</h2>
+          <p class="hinweis">Diesen Link schickst du an alle. Darüber melden sie sich an und sehen später ihr Ergebnis. Der Admin-Bereich ist mit deinem Passwort geschützt.</p>
+          <p id="einladungslink" class="link-anzeige"></p>
+          <div class="aktionen">
+            <button id="knopf-einladung-kopieren" type="button" class="knopf knopf-dezent">🔗 Link kopieren</button>
+            <a id="knopf-einladung-whatsapp" class="knopf knopf-haupt" target="_blank" rel="noopener">WhatsApp</a>
+            <a id="knopf-einladung-mail" class="knopf knopf-haupt">E-Mail</a>
+          </div>
+        </section>
+
+        <section class="karte info-karte">
+          <h2>Regeln</h2>
+          <p>💶 Budget: höchstens <strong class="budget-wert"></strong> pro Geschenk.
+            <button id="knopf-budget-bearbeiten" class="link-knopf" type="button">✏️ Budget ändern</button></p>
+          <form id="form-budget" class="budget-form" hidden>
+            <label for="eingabe-budget">Budget pro Geschenk in €</label>
+            <div class="eingabezeile">
+              <input id="eingabe-budget" type="number" min="1" max="10000" step="1" inputmode="numeric">
+              <button type="submit" class="knopf">Speichern</button>
+              <button id="knopf-budget-abbrechen" type="button" class="knopf knopf-dezent">Abbrechen</button>
+            </div>
+            <p id="meldung-budget" class="meldung" role="alert" hidden></p>
+          </form>
+        </section>
+
+        <section class="karte info-karte">
+          <h2>Teilnehmende <span id="admin-anzahl" class="anzahl-blase"></span></h2>
+          <ul id="admin-liste" class="liste"></ul>
+          <p id="admin-leer" class="leer">Noch niemand angemeldet. Verschick zuerst den Einladungslink.</p>
+
+          <div id="admin-offen-aktionen" class="aktionen">
+            <span></span>
+            <button id="knopf-auslosen" type="button" class="knopf knopf-haupt">🎲 Anmeldung schließen &amp; auslosen</button>
+          </div>
+          <div id="admin-ausgelost-aktionen" class="aktionen" hidden>
+            <button id="knopf-auslosung-zuruecksetzen" type="button" class="knopf knopf-dezent">Auslosung zurücksetzen</button>
+            <button id="knopf-runde-loeschen" type="button" class="knopf knopf-gefahr">Runde beenden &amp; alles löschen</button>
+          </div>
+          <p id="meldung-admin" class="meldung" role="alert" hidden></p>
+        </section>
+
+        <section class="karte info-karte">
+          <h2>So organisierst du das Wichteln</h2>
+          <ol class="anleitung">
+            <li><strong>Budget prüfen:</strong> Leg oben fest, wie viel ein Geschenk höchstens kosten darf.</li>
+            <li><strong>Einladen:</strong> Schick den Einladungslink an alle, per WhatsApp oder E-Mail.</li>
+            <li><strong>Anmeldungen abwarten:</strong> Jede Person meldet sich selbst an und trägt bis zu 3 Wünsche ein. Hier siehst du, wer schon dabei ist.</li>
+            <li><strong>Auslosen:</strong> Wenn alle dabei sind, klick auf „Anmeldung schließen &amp; auslosen“. Danach kann sich niemand mehr anmelden.</li>
+            <li><strong>Bescheid sagen:</strong> Gib allen kurz Bescheid. Alle öffnen wieder den Link und decken ihren Wichtel auf.</li>
+            <li><strong>Aufräumen:</strong> Nach dem Wichteln „Runde beenden &amp; alles löschen“. Das Budget bleibt fürs nächste Jahr.</li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="fuss">
+    <img class="fuss-zweig fuss-zweig-links" src="bilder/zweig-boden.jpg" alt="" aria-hidden="true">
+    <img class="fuss-zweig fuss-zweig-rechts" src="bilder/zweig-ecke.jpg" alt="" aria-hidden="true">
+    <p class="fuss-gruss">Frohe Weihnachten!</p>
+    <p><a id="link-bereich-wechsel" href="#admin">Admin-Bereich</a></p>
+  </footer>
+
+  <script src="demo-backend.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

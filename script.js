@@ -7,8 +7,9 @@
    ========================================================= */
 
 const CONFIG = window.WICHTEL_CONFIG || {};
-const CODE_SCHLUESSEL = "wichtel-code";
-const ADMIN_SCHLUESSEL = "wichtel-admin";
+// Die Demo-Version nutzt eigene Schlüssel, damit sie sich nicht mit dem echten Tool vermischt.
+const CODE_SCHLUESSEL = `${CONFIG.speicherPraefix || ""}wichtel-code`;
+const ADMIN_SCHLUESSEL = `${CONFIG.speicherPraefix || ""}wichtel-admin`;
 const MAX_WUENSCHE = 3;
 
 function istEingerichtet() {
