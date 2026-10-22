@@ -8,18 +8,22 @@
   <title>Familien-Wichteln</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="schnee" aria-hidden="true"></div>
+  <div class="funkeln" aria-hidden="true"></div>
 
   <header class="kopf">
-    <div class="girlande" aria-hidden="true">
-      <span>🎅</span><span>🎄</span><span>🦌</span><span>🎁</span><span>⛄</span><span>🔔</span><span>🧦</span>
+    <img class="kopf-zweig" src="bilder/zweig-sterne.jpg" alt="" aria-hidden="true">
+    <div class="kopf-text">
+      <p class="eyebrow">Fair <span>•</span> Geheim <span>•</span> Fehlerfrei</p>
+      <h1>Familien-<span class="skript">Wichteln</span></h1>
+      <p class="untertitel">Die Wichtel-Auslosung für die ganze Familie.</p>
     </div>
-    <h1>Familien-Wichteln</h1>
-    <p class="untertitel">🍬 Fair, geheim und fehlerfrei auslosen 🍬</p>
+    <div class="kopf-bild">
+      <img src="bilder/laterne.jpg" alt="Laterne mit Kerze vor einer verschneiten Winterlandschaft">
+    </div>
   </header>
 
   <main>
@@ -47,11 +51,11 @@
       <section class="karte info-karte" aria-labelledby="tn-titel-regeln">
         <h2 id="tn-titel-regeln">Unsere Wichtel-Regeln</h2>
         <ul class="regeln">
-          <li><span class="regel-symbol">🎁</span><span>Jede Person beschenkt <strong>genau eine</strong> andere Person und bekommt selbst <strong>genau ein</strong> Geschenk.</span></li>
-          <li><span class="regel-symbol">🙅</span><span>Niemand kann sich selbst ziehen. Das prüft das Tool automatisch.</span></li>
-          <li class="regel-budget"><span class="regel-symbol">💶</span><span>Budget: höchstens <strong class="budget-wert"></strong> pro Geschenk.</span></li>
-          <li><span class="regel-symbol">🤫</span><span>Psst! Verrate niemandem, wen du beschenkst. Die Überraschung ist das Schönste.</span></li>
-          <li><span class="regel-symbol">📝</span><span>Jede Person darf bis zu <strong>3 Geschenkwünsche</strong> hinterlegen. Die Wünsche sind Anregungen, keine Pflicht.</span></li>
+          <li><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="9" width="17" height="11.5" rx="1"/><path d="M2.5 9h19v-3h-19z"/><path d="M12 6v14.5"/><path d="M12 6c-1.5-3.5-5.5-3.5-5.5-1S10 6 12 6zm0 0c1.5-3.5 5.5-3.5 5.5-1S14 6 12 6z"/></svg></span><span>Jede Person beschenkt <strong>genau eine</strong> andere Person und bekommt selbst <strong>genau ein</strong> Geschenk.</span></li>
+          <li><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/><path d="M4 4l16 16"/></svg></span><span>Niemand kann sich selbst ziehen. Das prüft das Tool automatisch.</span></li>
+          <li class="regel-budget"><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5a4 4 0 1 0 0 7"/><path d="M8 10.8h5.5M8 13.2h5.5"/></svg></span><span>Budget: höchstens <strong class="budget-wert"></strong> pro Geschenk.</span></li>
+          <li><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/></svg></span><span>Psst! Verrate niemandem, wen du beschenkst. Die Überraschung ist das Schönste.</span></li>
+          <li><span class="regel-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M15 3.5V7h3.5"/><path d="M9 11h6.5M9 14h6.5M9 17h4"/></svg></span><span>Jede Person darf bis zu <strong>3 Geschenkwünsche</strong> hinterlegen. Die Wünsche sind Anregungen, keine Pflicht.</span></li>
         </ul>
       </section>
 
@@ -264,7 +268,9 @@
   </main>
 
   <footer class="fuss">
-    <p class="fuss-gruss">Frohe Weihnachten! 🎄</p>
+    <img class="fuss-zweig fuss-zweig-links" src="bilder/zweig-boden.jpg" alt="" aria-hidden="true">
+    <img class="fuss-zweig fuss-zweig-rechts" src="bilder/zweig-ecke.jpg" alt="" aria-hidden="true">
+    <p class="fuss-gruss">Frohe Weihnachten!</p>
     <p><a id="link-bereich-wechsel" href="#admin">Admin-Bereich</a></p>
   </footer>
 

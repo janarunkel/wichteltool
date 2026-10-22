@@ -1,19 +1,24 @@
 :root {
-  --rot: #c8312b;
-  --rot-dunkel: #9e221d;
-  --rot-hell: #fdeceb;
-  --gruen: #2f6b3a;
-  --gruen-dunkel: #1f4a28;
-  --gruen-hell: #e9f3e6;
-  --gold: #e2a72e;
-  --text: #3a2a22;
-  --text-dezent: #7a675c;
-  --rand: #ecdccb;
-  --creme: #fffaf2;
+  --seite: #f7f2ea;
+  --papier: #fffdf9;
+  --gruen: #12382c;
+  --gruen-dunkel: #0b2a20;
+  --gruen-hell: #e7ece4;
+  --salbei: #dfe5d8;
+  --rot: #9b2428;
+  --rot-dunkel: #7a1b1f;
+  --rot-hell: #f7e6e2;
+  --gold: #b48a45;
+  --gold-hell: #e9d9b8;
+  --text: #2d2a24;
+  --text-dezent: #6e675b;
+  --rand: #ece2d0;
+  --creme: #fbf7f0;
   --weiss: #ffffff;
   --radius: 18px;
-  --schrift-hand: "Caveat Brush", "Segoe Print", "Comic Sans MS", cursive;
-  --schrift-text: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --schrift-hand: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --schrift-skript: "Great Vibes", "Segoe Script", cursive;
+  --schrift-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 * {
@@ -834,4 +839,590 @@ code {
   background: #fff6e3;
   padding: 0.05rem 0.35rem;
   border-radius: 6px;
+}
+
+
+/* =========================================================
+   Winterzauber-Design: helles Creme, Tannengrün und Gold,
+   elegante Serifenschrift mit goldener Schreibschrift,
+   Laternenfoto im Kopfbereich und Tannenzweige als Schmuck.
+   ========================================================= */
+
+body {
+  background-color: var(--seite);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="p"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.3  0 0 0 0.05 0"/></filter><rect width="100%" height="100%" filter="url(%23p)"/></svg>');
+  background-size: 200px 200px;
+  color: var(--text);
+  font-weight: 400;
+}
+
+/* Goldene Funkelsterne statt Schnee */
+.funkeln {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(2px 2px at 8% 18%, var(--gold) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 92% 12%, var(--gold) 50%, transparent 51%),
+    radial-gradient(2px 2px at 85% 46%, var(--gold) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 4% 62%, var(--gold) 50%, transparent 51%),
+    radial-gradient(2px 2px at 96% 78%, var(--gold) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 12% 90%, var(--gold) 50%, transparent 51%);
+  opacity: 0.7;
+  animation: funkeln 4s ease-in-out infinite alternate;
+}
+
+@keyframes funkeln {
+  from { opacity: 0.25; }
+  to { opacity: 0.8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funkeln { animation: none; }
+}
+
+/* ---------- Kopfbereich mit Foto ---------- */
+.kopf {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  max-width: none;
+  margin: 0 0 3rem;
+  padding: 0;
+  background: none;
+  color: var(--text);
+  text-align: left;
+  min-height: 560px;
+}
+
+.kopf::after {
+  content: none;
+}
+
+.kopf-zweig {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  object-position: left top;
+  -webkit-mask-image: linear-gradient(to right, #000 55%, transparent);
+  mask-image: linear-gradient(to right, #000 55%, transparent);
+  pointer-events: none;
+}
+
+.kopf-text {
+  position: relative;
+  padding: 4rem 2rem 3.5rem 240px;
+}
+
+@media (max-width: 1150px) and (min-width: 821px) {
+  .kopf-text {
+    padding-left: 170px;
+  }
+
+  .kopf-zweig {
+    height: 80%;
+  }
+}
+
+.eyebrow {
+  margin: 0 0 1.2rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gruen);
+}
+
+.eyebrow span {
+  color: var(--gold);
+  margin: 0 0.35em;
+}
+
+.kopf h1 {
+  margin: 0;
+  font-family: var(--schrift-hand);
+  font-weight: 400;
+  font-size: clamp(3rem, 5.4vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--gruen);
+  text-shadow: none;
+}
+
+.kopf h1 .skript {
+  display: block;
+  margin: 0.05em 0 0 0.5em;
+  padding: 0 0.3em 0.1em 0.1em;
+  font-family: var(--schrift-skript);
+  font-weight: 400;
+  font-size: 1.45em;
+  line-height: 0.95;
+  letter-spacing: 0;
+  background: linear-gradient(100deg, #8d6427 0%, #c9a05a 45%, #9a7032 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.untertitel {
+  max-width: 30rem;
+  margin: 1.2rem 0 1.8rem 2.2rem;
+  font-size: 1.08rem;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text);
+  opacity: 1;
+}
+
+.kopf-bild {
+  position: relative;
+  align-self: stretch;
+  overflow: hidden;
+  border-bottom-left-radius: 40px;
+}
+
+.kopf-bild img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% center;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 22%);
+}
+
+/* Schrittanzeige im Admin-Bereich */
+.schritte li {
+  background: var(--papier);
+  border: 1px solid var(--rand);
+  color: var(--text-dezent);
+  font-weight: 500;
+}
+
+.schritte li.aktiv {
+  background: var(--gruen);
+  border-color: var(--gruen);
+  color: var(--weiss);
+}
+
+.schritte li.erledigt {
+  background: var(--gruen-hell);
+  border-color: var(--gruen-hell);
+  color: var(--gruen);
+}
+
+/* ---------- Inhalt und Karten ---------- */
+main {
+  max-width: 720px;
+}
+
+.karte {
+  background: var(--papier);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  padding: 2.5rem 2.25rem 2.1rem;
+  box-shadow: 0 1px 2px rgba(80, 60, 30, 0.04), 0 18px 40px -18px rgba(80, 60, 30, 0.18);
+  overflow: visible;
+}
+
+/* Kleiner goldener Stern oben rechts statt Zuckerstangen-Streifen */
+.karte::before {
+  content: "";
+  inset: auto;
+  top: 1.25rem;
+  right: 1.4rem;
+  left: auto;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 L13.4 10.6 L24 12 L13.4 13.4 L12 24 L10.6 13.4 L0 12 L10.6 10.6 Z" fill="%23b48a45"/></svg>') center / contain no-repeat;
+  opacity: 0.85;
+}
+
+.karte h2 {
+  position: relative;
+  margin: 0 0 1.4rem;
+  padding-bottom: 0.9rem;
+  font-family: var(--schrift-hand);
+  font-weight: 400;
+  font-size: 2.1rem;
+  line-height: 1.15;
+  color: var(--gruen);
+}
+
+/* Goldener Strich unter jeder Überschrift */
+.karte h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-hell));
+}
+
+.hinweis {
+  color: var(--text-dezent);
+  font-weight: 300;
+}
+
+.zentriert {
+  text-align: center;
+}
+
+/* ---------- Regeln mit goldenen Symbolen ---------- */
+.regeln li {
+  gap: 1rem;
+  align-items: center;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rand);
+}
+
+.regel-symbol {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  /* weicher Aquarell-Fleck */
+  background:
+    radial-gradient(circle at 38% 35%, rgba(255, 255, 255, 0.7), transparent 45%),
+    radial-gradient(circle at 60% 65%, #d6dfcf 0%, #e6ebdf 55%, rgba(230, 235, 223, 0) 72%);
+  font-size: 1.3rem;
+}
+
+.regeln li:nth-child(even) .regel-symbol {
+  background:
+    radial-gradient(circle at 38% 35%, rgba(255, 255, 255, 0.7), transparent 45%),
+    radial-gradient(circle at 60% 65%, #ecdcc0 0%, #f3e8d4 55%, rgba(243, 232, 212, 0) 72%);
+}
+
+.regel-symbol svg {
+  width: 1.55rem;
+  height: 1.55rem;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.regel-budget {
+  background: linear-gradient(90deg, rgba(233, 217, 184, 0.35), rgba(233, 217, 184, 0.08));
+  border-radius: 12px;
+}
+
+/* ---------- Anleitung ---------- */
+.anleitung li {
+  padding: 0.65rem 0 0.65rem 3.6rem;
+}
+
+.anleitung li::before,
+.anleitung li:nth-child(even)::before {
+  top: 0.35rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  line-height: 2.6rem;
+  background:
+    radial-gradient(circle at 60% 62%, #d6dfcf 0%, #e6ebdf 58%, rgba(230, 235, 223, 0) 74%);
+  color: var(--gold);
+  font-family: var(--schrift-hand);
+  font-size: 1.35rem;
+  box-shadow: none;
+}
+
+.anleitung li:nth-child(even)::before {
+  background:
+    radial-gradient(circle at 60% 62%, #ecdcc0 0%, #f3e8d4 58%, rgba(243, 232, 212, 0) 74%);
+}
+
+.anleitung strong {
+  color: var(--gruen);
+}
+
+/* ---------- Knöpfe ---------- */
+.knopf {
+  border-radius: 999px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  background: var(--gruen);
+  color: var(--weiss);
+  box-shadow: none;
+  transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.knopf:hover {
+  filter: none;
+  background: var(--gruen-dunkel);
+  box-shadow: 0 8px 18px -8px rgba(18, 56, 44, 0.55);
+}
+
+.knopf:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.knopf-haupt {
+  background: var(--gruen);
+  box-shadow: 0 10px 22px -12px rgba(18, 56, 44, 0.6);
+}
+
+.knopf-haupt:active {
+  box-shadow: none;
+}
+
+/* Pfeil wie im Vorbild */
+.knopf-haupt::after {
+  content: "  →";
+  white-space: pre;
+}
+
+.knopf-dezent {
+  background: transparent;
+  color: var(--gruen);
+  box-shadow: inset 0 0 0 1px rgba(18, 56, 44, 0.35);
+}
+
+.knopf-dezent:hover {
+  background: var(--gruen-hell);
+  box-shadow: inset 0 0 0 1px rgba(18, 56, 44, 0.35);
+}
+
+.knopf-gefahr {
+  background: transparent;
+  color: var(--rot);
+  box-shadow: inset 0 0 0 1px rgba(155, 36, 40, 0.45);
+}
+
+.knopf-gefahr:hover {
+  background: var(--rot-hell);
+  box-shadow: inset 0 0 0 1px rgba(155, 36, 40, 0.45);
+}
+
+.link-knopf {
+  color: var(--gruen);
+  font-weight: 500;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 4px;
+}
+
+/* ---------- Eingabefelder ---------- */
+.eingabezeile input,
+.feld input,
+.wunsch-felder input {
+  border: 1px solid var(--rand);
+  border-radius: 12px;
+  background: var(--creme);
+  font-weight: 400;
+}
+
+.eingabezeile input:focus,
+.feld input:focus,
+.wunsch-felder input:focus {
+  border-color: var(--gold);
+  background: var(--weiss);
+  box-shadow: 0 0 0 4px rgba(180, 138, 69, 0.15);
+}
+
+.feld,
+.wunsch-felder label {
+  font-weight: 500;
+  color: var(--gruen);
+}
+
+/* ---------- Listen ---------- */
+.liste li {
+  border: 1px solid var(--rand);
+  border-radius: 12px;
+  background: var(--creme);
+  font-weight: 500;
+}
+
+.liste li > span:first-child::before,
+.liste-nur-lesen li::before,
+.chips li::before {
+  content: "✦ ";
+  color: var(--gold);
+}
+
+.chips li {
+  background: var(--creme);
+  border: 1px solid var(--rand);
+  color: var(--gruen);
+  font-weight: 500;
+  padding: 0.45rem 1rem;
+}
+
+.anzahl-blase {
+  background: var(--gruen);
+  font-family: var(--schrift-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-width: 1.9rem;
+  line-height: 1.9rem;
+  box-shadow: none;
+}
+
+/* ---------- Status, Meldungen, Notizzettel ---------- */
+.status-box,
+.erfolg {
+  background: var(--gruen-hell);
+  color: var(--gruen);
+  border-left: 3px solid var(--gruen);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.meldung {
+  background: var(--rot-hell);
+  color: var(--rot-dunkel);
+  border-left: 3px solid var(--rot);
+  border-radius: 6px;
+}
+
+.code-anzeige,
+.wunschzettel {
+  background: var(--creme);
+  border: 1px dashed var(--gold);
+  border-radius: 12px;
+}
+
+.code-anzeige {
+  color: var(--gruen);
+}
+
+.link-anzeige,
+code {
+  background: var(--creme);
+  border-color: var(--rand);
+}
+
+/* ---------- Ergebnis ---------- */
+.empfaenger {
+  font-family: var(--schrift-skript);
+  font-weight: 400;
+  font-size: 4rem;
+  line-height: 1.1;
+  background: linear-gradient(100deg, #8d6427 0%, #c9a05a 45%, #9a7032 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eigene-wuensche {
+  border-top: 1px solid var(--rand);
+}
+
+.eigene-wuensche summary {
+  color: var(--gruen);
+  font-weight: 500;
+}
+
+/* ---------- Fußbereich mit Tannenzweigen ---------- */
+.fuss {
+  position: relative;
+  max-width: 1280px;
+  margin: 2rem auto 0;
+  padding: 2.5rem 1rem 2rem;
+  color: var(--text-dezent);
+  overflow: hidden;
+}
+
+.fuss-zweig {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  max-height: 170px;
+  width: auto;
+  pointer-events: none;
+}
+
+.fuss-zweig-links {
+  left: 0;
+  -webkit-mask-image: linear-gradient(to right, #000 60%, transparent), linear-gradient(to top, #000 60%, transparent);
+  mask-image: linear-gradient(to right, #000 60%, transparent);
+}
+
+.fuss-zweig-rechts {
+  right: 0;
+  -webkit-mask-image: linear-gradient(to left, #000 60%, transparent);
+  mask-image: linear-gradient(to left, #000 60%, transparent);
+}
+
+.fuss-gruss {
+  position: relative;
+  margin: 0;
+  font-family: var(--schrift-skript);
+  font-weight: 400;
+  font-size: 2.8rem;
+  line-height: 1.2;
+  background: linear-gradient(100deg, #8d6427 0%, #c9a05a 45%, #9a7032 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.fuss p {
+  position: relative;
+}
+
+.fuss a {
+  color: var(--gruen);
+  font-weight: 500;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 4px;
+}
+
+/* ---------- Handy ---------- */
+@media (max-width: 820px) {
+  .kopf {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    margin-bottom: 2rem;
+  }
+
+  .kopf-bild {
+    order: -1;
+    height: 260px;
+    border-radius: 0 0 28px 28px;
+  }
+
+  .kopf-bild img {
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  }
+
+  .kopf-zweig {
+    display: none;
+  }
+
+  .kopf-text {
+    padding: 0 1.25rem;
+    text-align: center;
+  }
+
+  .kopf h1 .skript {
+    margin-left: 0;
+  }
+
+  .untertitel {
+    margin: 1rem auto 1.5rem;
+  }
+
+  .karte {
+    padding: 2.1rem 1.35rem 1.6rem;
+  }
+
+  .fuss-zweig {
+    max-height: 110px;
+  }
 }
