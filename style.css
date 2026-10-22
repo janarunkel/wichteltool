@@ -1,0 +1,837 @@
+:root {
+  --rot: #c8312b;
+  --rot-dunkel: #9e221d;
+  --rot-hell: #fdeceb;
+  --gruen: #2f6b3a;
+  --gruen-dunkel: #1f4a28;
+  --gruen-hell: #e9f3e6;
+  --gold: #e2a72e;
+  --text: #3a2a22;
+  --text-dezent: #7a675c;
+  --rand: #ecdccb;
+  --creme: #fffaf2;
+  --weiss: #ffffff;
+  --radius: 18px;
+  --schrift-hand: "Caveat Brush", "Segoe Print", "Comic Sans MS", cursive;
+  --schrift-text: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  font-family: var(--schrift-text);
+  color: var(--text);
+  line-height: 1.5;
+  background-color: var(--creme);
+  /* Verstreute Weihnachts-Doodles als Kachelmuster */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="340" height="360"><g opacity="0.22"><text x="20" y="40" font-size="30" transform="rotate(-10 20 40)">%F0%9F%8E%85</text><text x="130" y="30" font-size="30" transform="rotate(8 130 30)">%F0%9F%8E%84</text><text x="240" y="60" font-size="30" transform="rotate(-6 240 60)">%F0%9F%A6%8C</text><text x="60" y="140" font-size="30" transform="rotate(12 60 140)">%F0%9F%8E%81</text><text x="180" y="150" font-size="30" transform="rotate(-8 180 150)">%E2%9B%84</text><text x="290" y="170" font-size="30" transform="rotate(10 290 170)">%F0%9F%A7%A6</text><text x="30" y="250" font-size="30" transform="rotate(-12 30 250)">%F0%9F%94%94</text><text x="120" y="240" font-size="30" transform="rotate(0 120 240)">%E2%AD%90</text><text x="220" y="260" font-size="30" transform="rotate(15 220 260)">%F0%9F%8D%AC</text><text x="300" y="90" font-size="30" transform="rotate(0 300 90)">%E2%9D%84%EF%B8%8F</text><text x="90" y="320" font-size="30" transform="rotate(-5 90 320)">%F0%9F%8D%AA</text><text x="260" y="330" font-size="30" transform="rotate(6 260 330)">%F0%9F%8E%80</text></g></svg>');
+  background-size: 340px 360px;
+  min-height: 100vh;
+}
+
+.versteckt {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* Leise rieselnder Schnee */
+.schnee {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(4px 4px at 20px 30px, #fff 50%, transparent 51%),
+    radial-gradient(3px 3px at 90px 120px, #fff 50%, transparent 51%),
+    radial-gradient(5px 5px at 160px 60px, #fff 50%, transparent 51%),
+    radial-gradient(3px 3px at 230px 170px, #fff 50%, transparent 51%),
+    radial-gradient(4px 4px at 60px 210px, #fff 50%, transparent 51%);
+  background-size: 260px 260px;
+  filter: drop-shadow(0 0 1px rgba(150, 170, 190, 0.9));
+  animation: rieseln 18s linear infinite;
+}
+
+@keyframes rieseln {
+  from { background-position: 0 0; }
+  to { background-position: 40px 260px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schnee { animation: none; }
+}
+
+/* Kopfbereich */
+.kopf {
+  position: relative;
+  z-index: 1;
+  background: var(--rot);
+  background-image: radial-gradient(circle at 50% -40%, #e3524a 0%, var(--rot) 60%);
+  color: var(--weiss);
+  text-align: center;
+  padding: 1.25rem 1rem 2.4rem;
+}
+
+/* Wellenkante wie Schnee am unteren Rand */
+.kopf::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 22px;
+  background: radial-gradient(circle at 15px 0, transparent 14px, var(--creme) 15px) repeat-x;
+  background-size: 30px 22px;
+}
+
+.girlande {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1.8rem;
+}
+
+.girlande span {
+  display: inline-block;
+  animation: wackeln 3s ease-in-out infinite;
+}
+
+.girlande span:nth-child(even) {
+  animation-delay: 1.5s;
+}
+
+@keyframes wackeln {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+
+.kopf h1 {
+  margin: 0.3rem 0 0;
+  font-family: var(--schrift-hand);
+  font-weight: 400;
+  font-size: 3.4rem;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-shadow: 2px 3px 0 var(--rot-dunkel);
+}
+
+.untertitel {
+  margin: 0.35rem 0 0;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+/* Schrittanzeige */
+.schritte {
+  position: relative;
+  z-index: 1;
+}
+
+.schritte ol {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.schritte li {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dezent);
+  background: var(--weiss);
+  border: 2px dashed var(--rand);
+}
+
+.schritte li.aktiv {
+  background: var(--gruen);
+  border: 2px solid var(--gruen);
+  color: var(--weiss);
+}
+
+.schritte li.aktiv::before {
+  content: "⭐ ";
+}
+
+.schritte li.erledigt {
+  background: var(--gruen-hell);
+  border: 2px solid var(--gruen-hell);
+  color: var(--gruen);
+}
+
+.schritte li.erledigt::before {
+  content: "✓ ";
+}
+
+/* Inhalt */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+}
+
+.karte {
+  position: relative;
+  background: var(--weiss);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem 1.5rem;
+  box-shadow: 0 6px 20px rgba(120, 40, 30, 0.12);
+  overflow: hidden;
+}
+
+/* Zuckerstangen-Streifen oben auf jeder Karte */
+.karte::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: repeating-linear-gradient(-45deg, var(--rot) 0 12px, var(--weiss) 12px 24px);
+}
+
+.karte h2 {
+  margin: 0 0 0.5rem;
+  font-family: var(--schrift-hand);
+  font-weight: 400;
+  font-size: 2.2rem;
+  line-height: 1.1;
+  color: var(--gruen);
+}
+
+.hinweis {
+  color: var(--text-dezent);
+}
+
+.klein {
+  font-size: 0.9rem;
+  color: var(--text-dezent);
+}
+
+/* Eingabe */
+.eingabezeile {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.eingabezeile input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 2px solid var(--rand);
+  border-radius: 12px;
+  background: var(--creme);
+}
+
+.eingabezeile input:focus {
+  outline: none;
+  border-color: var(--gruen);
+  background: var(--weiss);
+}
+
+/* Knöpfe */
+.knopf {
+  padding: 0.75rem 1.2rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: var(--gruen);
+  color: var(--weiss);
+  box-shadow: 0 3px 0 var(--gruen-dunkel);
+  transition: transform 0.1s, filter 0.15s;
+}
+
+.knopf:hover {
+  filter: brightness(1.1);
+}
+
+.knopf:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--gruen-dunkel);
+}
+
+.knopf:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+
+.knopf-haupt {
+  background: var(--rot);
+  box-shadow: 0 3px 0 var(--rot-dunkel);
+}
+
+.knopf-haupt:active {
+  box-shadow: 0 1px 0 var(--rot-dunkel);
+}
+
+.knopf-dezent {
+  background: var(--gruen-hell);
+  color: var(--gruen);
+  box-shadow: 0 3px 0 #cfe2c9;
+}
+
+.knopf-gefahr {
+  background: var(--rot-hell);
+  color: var(--rot-dunkel);
+  box-shadow: 0 3px 0 #f2c9c6;
+}
+
+.aktionen {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Meldungen */
+.meldung {
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  background: var(--rot-hell);
+  color: var(--rot-dunkel);
+  font-weight: 600;
+}
+
+/* Listen */
+.liste {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.liste li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.9rem;
+  border: 2px solid var(--rand);
+  border-radius: 12px;
+  margin-bottom: 0.45rem;
+  font-weight: 600;
+}
+
+.liste li > span:first-child::before,
+.liste-nur-lesen li::before {
+  content: "🎄 ";
+}
+
+.liste-nur-lesen li {
+  justify-content: flex-start;
+  background: var(--gruen-hell);
+  border-color: transparent;
+}
+
+.knopf-entfernen {
+  background: none;
+  border: none;
+  color: var(--rot);
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+}
+
+.leer {
+  color: var(--text-dezent);
+  font-style: italic;
+  text-align: center;
+  margin: 1rem 0 0;
+}
+
+.anzahl,
+.fortschritt {
+  font-weight: 800;
+  color: var(--gruen);
+}
+
+/* Overlay für geheime Ansicht */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 74, 40, 0.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay-karte {
+  position: relative;
+  background: var(--weiss);
+  border-radius: var(--radius);
+  padding: 2.2rem 1.5rem 1.8rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  border: 4px solid var(--gold);
+}
+
+.overlay-karte::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: repeating-linear-gradient(-45deg, var(--rot) 0 12px, var(--weiss) 12px 24px);
+}
+
+.overlay-karte h2 {
+  font-family: var(--schrift-hand);
+  font-weight: 400;
+  font-size: 2.2rem;
+  color: var(--gruen);
+  margin-top: 0;
+}
+
+.overlay-karte .aktionen {
+  justify-content: center;
+}
+
+.geschenk-symbol {
+  font-size: 3.5rem;
+  margin: 0;
+  animation: huepfen 1.2s ease-in-out infinite;
+}
+
+@keyframes huepfen {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.empfaenger {
+  font-family: var(--schrift-hand);
+  font-size: 3.2rem;
+  line-height: 1.1;
+  color: var(--rot);
+  margin: 0.3rem 0 1rem;
+  word-break: break-word;
+}
+
+/* Fußbereich */
+.fuss {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-dezent);
+  padding: 1rem;
+}
+
+.fuss-gruss {
+  font-family: var(--schrift-hand);
+  font-size: 1.8rem;
+  color: var(--rot);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .kopf h1 {
+    font-size: 2.7rem;
+  }
+
+  .girlande {
+    font-size: 1.5rem;
+    gap: 0.4rem;
+  }
+
+  .aktionen .knopf {
+    flex: 1 1 100%;
+  }
+}
+
+/* Infobereich: Regeln und Anleitung */
+.info-karte {
+  margin-bottom: 1.25rem;
+}
+
+.regeln {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.regeln li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.55rem 0;
+  border-bottom: 2px dotted var(--rand);
+}
+
+.regeln li:last-child {
+  border-bottom: none;
+}
+
+.regel-symbol {
+  flex: 0 0 auto;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+.regel-budget {
+  background: #fff6e3;
+  border-radius: 12px;
+  padding: 0.7rem 0.75rem !important;
+  border-bottom: none !important;
+  margin: 0.3rem 0;
+}
+
+.link-knopf {
+  display: inline-block;
+  margin-top: 0.2rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--gruen);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.budget-form {
+  margin-top: 0.75rem;
+}
+
+.budget-form label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.budget-form .eingabezeile {
+  flex-wrap: wrap;
+}
+
+.budget-form input {
+  max-width: 140px;
+}
+
+.anleitung {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: schritt;
+}
+
+.anleitung li {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 2.8rem;
+  counter-increment: schritt;
+}
+
+.anleitung li::before {
+  content: counter(schritt);
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--rot);
+  color: var(--weiss);
+  font-family: var(--schrift-hand);
+  font-size: 1.3rem;
+  line-height: 2rem;
+  text-align: center;
+}
+
+.anleitung li:nth-child(even)::before {
+  background: var(--gruen);
+}
+
+/* Wünsche in der Teilnehmerliste */
+.zeilen-knoepfe {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 0 0 auto;
+}
+
+.knopf-wuensche {
+  padding: 0.3rem 0.65rem;
+  border: none;
+  border-radius: 999px;
+  background: #fff6e3;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.knopf-wuensche:hover {
+  background: #fdebc4;
+}
+
+.liste li > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  margin-right: 0.5rem;
+}
+
+/* Dialoge dürfen auf kleinen Bildschirmen scrollen */
+.overlay-karte {
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+.wunsch-felder {
+  display: grid;
+  gap: 0.75rem;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.wunsch-felder label {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.wunsch-felder input {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.65rem 0.9rem;
+  font: inherit;
+  font-weight: 400;
+  border: 2px solid var(--rand);
+  border-radius: 12px;
+  background: var(--creme);
+}
+
+.wunsch-felder input:focus {
+  outline: none;
+  border-color: var(--gruen);
+  background: var(--weiss);
+}
+
+/* Wunschzettel in der geheimen Ansicht */
+.wunschzettel {
+  text-align: left;
+  background: #fff6e3;
+  border: 2px dashed var(--gold);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.wunschzettel-titel {
+  margin: 0 0 0.25rem;
+  font-weight: 800;
+}
+
+.wunschzettel ul {
+  margin: 0;
+  padding-left: 1.3rem;
+}
+
+.wunschzettel ul:empty {
+  display: none;
+}
+
+.wunschzettel .klein {
+  margin: 0;
+}
+
+.budget-hinweis {
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+/* ---------- Online-Version ---------- */
+main > .karte,
+#teilnehmer-bereich > .karte,
+#admin-dashboard > .karte {
+  margin-bottom: 1.25rem;
+}
+
+.zentriert {
+  text-align: center;
+}
+
+.meldung-global {
+  margin-bottom: 1rem;
+}
+
+a.knopf {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.knopf-gross {
+  display: block;
+  width: 100%;
+  padding: 1.1rem;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.feld {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.feld input {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  font-weight: 400;
+  border: 2px solid var(--rand);
+  border-radius: 12px;
+  background: var(--creme);
+}
+
+.feld input:focus {
+  outline: none;
+  border-color: var(--gruen);
+  background: var(--weiss);
+}
+
+.code-anzeige {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  background: #fff6e3;
+  border: 2px dashed var(--gold);
+  border-radius: 12px;
+  padding: 1rem 0.5rem;
+  word-break: break-all;
+}
+
+.status-box {
+  background: var(--gruen-hell);
+  color: var(--gruen-dunkel);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+}
+
+.aufgedeckt {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.eigene-wuensche {
+  margin-top: 1.5rem;
+  border-top: 2px dotted var(--rand);
+  padding-top: 1rem;
+}
+
+.eigene-wuensche summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--gruen);
+}
+
+.erfolg {
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  background: var(--gruen-hell);
+  color: var(--gruen-dunkel);
+  font-weight: 600;
+}
+
+.chips {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chips li {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: var(--gruen-hell);
+  color: var(--gruen-dunkel);
+  font-weight: 700;
+}
+
+.chips li::before {
+  content: "🎄 ";
+}
+
+.anzahl-blase {
+  display: inline-block;
+  min-width: 2rem;
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  background: var(--rot);
+  color: var(--weiss);
+  font-family: var(--schrift-text);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 2rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.link-anzeige {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.9rem;
+  background: var(--creme);
+  border: 2px solid var(--rand);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  word-break: break-all;
+}
+
+.wunsch-zaehler {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-dezent);
+  white-space: nowrap;
+}
+
+.fuss a {
+  color: var(--gruen);
+  font-weight: 700;
+}
+
+code {
+  background: #fff6e3;
+  padding: 0.05rem 0.35rem;
+  border-radius: 6px;
+}
