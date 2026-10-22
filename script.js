@@ -22,7 +22,9 @@ async function rpc(funktion, parameter = {}) {
 
   let antwort;
   try {
-    antwort = await fetch(`${CONFIG.supabaseUrl.replace(/\/+$/, "")}/rest/v1/rpc/${funktion}`, {
+    // Auch eine URL mit angehängtem "/rest/v1/" aus dem Supabase-Dashboard funktioniert.
+    const basis = CONFIG.supabaseUrl.trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
+    antwort = await fetch(`${basis}/rest/v1/rpc/${funktion}`, {
       method: "POST",
       headers: kopfzeilen,
       body: JSON.stringify(parameter),
